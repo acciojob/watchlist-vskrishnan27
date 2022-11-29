@@ -22,11 +22,11 @@ public class Movie {
         this.name = name;
     }
 
-    public int getDurationinMinutes() {
+    public int getDurationInMinutes() {
         return durationInMinutes;
     }
 
-    public void setDurationinMinutes(int durationInMinutes) {
+    public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
     }
 
