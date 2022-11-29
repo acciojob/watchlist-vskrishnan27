@@ -51,7 +51,7 @@ public class MovieRepository {
     public List<String> getAllMoviesOfDirector(String directorName) {
         List<String> movieList = new ArrayList<>();
         for (Movie x : listOfMovies.keySet()) {
-            if (listOfMovies.get(x).equals(directorName))
+            if (listOfMovies.get(x) != null && listOfMovies.get(x).equals(directorName))
                 movieList.add(x.getName());
         }
         return movieList;
@@ -69,9 +69,10 @@ public class MovieRepository {
         for (Director x : directorMovieList.keySet()) {
             if (x.getName().equals(directorName)) {
                 for (Movie movie : directorMovieList.get(x)) {
-                    directorMovieList.remove(movie);
+                    listOfMovies.remove(movie);
                 }
-                return;
+                directorMovieList.remove(x);
+
             }
         }
     }
@@ -81,6 +82,7 @@ public class MovieRepository {
             for (Movie movie : directorMovieList.get(x)) {
                 listOfMovies.remove(movie);
             }
+            directorMovieList.remove(x);
         }
     }
 

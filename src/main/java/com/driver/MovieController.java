@@ -129,9 +129,9 @@ public class MovieController {
      */
 
     @DeleteMapping("/movies/delete-director-by-name")
-    public ResponseEntity deleteDirectorByName(@RequestParam("director's name") String directorName) {
+    public ResponseEntity<String> deleteDirectorByName(@RequestParam("director's name") String directorName) {
         movieService.deleteDirectorAndItsMovies(directorName);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("success", HttpStatus.ACCEPTED);
     }
 
     /**
@@ -145,9 +145,9 @@ public class MovieController {
      */
 
     @DeleteMapping("/movies/delete-all-directors")
-    public ResponseEntity deleteAllDirectors() {
+    public ResponseEntity<String> deleteAllDirectors() {
         movieService.deleteNonMappedRecord();
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("success", HttpStatus.ACCEPTED);
     }
 
 }
