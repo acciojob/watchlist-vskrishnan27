@@ -2,6 +2,7 @@ package com.driver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,14 @@ public class MovieRepository {
         for (Movie x : listOfMovies.keySet()) {
             if (x.getName().equals(movieName)) {
                 listOfMovies.put(x, directorName);
-                return;
+
+                for (Director dir : directorMovieList.keySet()) {
+                    if (dir.getName().equals(directorName)) {
+                        List<Movie> newListofMovies = new ArrayList<>(directorMovieList.get(dir));
+                        newListofMovies.add(x);
+                        directorMovieList.put(dir, newListofMovies);
+                    }
+                }
             }
         }
     }
@@ -66,21 +74,26 @@ public class MovieRepository {
     }
 
     public void deleteDirectorAndItsMoviesFromDB(String directorName) {
-        for (Director x : directorMovieList.keySet()) {
+        for (Director x : new ArrayList<>(directorMovieList.keySet())) {
             if (x.getName().equals(directorName)) {
-                for (Movie movie : directorMovieList.get(x)) {
-                    listOfMovies.remove(movie);
+                if (directorMovieList.get(x) != null) {
+                    for (Movie movie : directorMovieList.get(x)) {
+                        System.out.println(movie.getName());
+                        listOfMovies.remove(movie);
+                    }
                 }
                 directorMovieList.remove(x);
-
             }
         }
+
     }
 
     public void DeleteAllDirectorRecordFromDB() {
-        for (Director x : directorMovieList.keySet()) {
-            for (Movie movie : directorMovieList.get(x)) {
-                listOfMovies.remove(movie);
+        for (Director x : new ArrayList<>(directorMovieList.keySet())) {
+            if (directorMovieList.get(x) != null) {
+                for (Movie movie : directorMovieList.get(x)) {
+                    listOfMovies.remove(movie);
+                }
             }
             directorMovieList.remove(x);
         }
